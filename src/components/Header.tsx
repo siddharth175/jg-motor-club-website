@@ -23,18 +23,18 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Left: Official Circular Emblem Logo (Larger floating badge) */}
+          {/* Left: Official Circular Emblem Logo (Large floating badge matching mockup) */}
           <button
             onClick={() => onTabChange("home")}
             className="flex items-center gap-3 group text-left cursor-pointer z-20 relative"
           >
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full bg-white p-1 border-2 border-white/60 shadow-2xl flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform shrink-0 translate-y-4">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white p-1 border-2 border-white/40 shadow-2xl flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform shrink-0 translate-y-3">
               <Image
                 src={siteConfig.brand.logoUrl}
                 alt={siteConfig.brand.name}
-                width={128}
-                height={128}
-                className="object-contain w-full h-full p-1"
+                width={96}
+                height={96}
+                className="object-contain w-full h-full p-0.5"
                 priority
               />
             </div>
