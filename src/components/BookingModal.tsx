@@ -14,10 +14,9 @@ import {
   CheckCircle2,
   ArrowRight,
   ArrowLeft,
-  ShieldCheck,
+  AlertCircle,
   Wrench,
-  Check,
-  AlertCircle
+  Check
 } from "lucide-react";
 
 interface BookingModalProps {
@@ -43,7 +42,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   onClose,
   initialServiceId = "state-inspection",
 }) => {
-  // Step State: 1 = Service, 2 = Date/Time & Wait/Drop-off, 3 = Customer Info
+  // Step State: 1 = Date/Time & Repair Option, 2 = Customer Info & Car Plate
   const [step, setStep] = useState(1);
 
   // Form State
@@ -52,7 +51,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [appointmentDate, setAppointmentDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("09:00 AM");
 
-  // Customer Details (Step 3)
+  // Customer Details (Step 2)
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -62,7 +61,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   // Submission State
   const [confirmed, setConfirmed] = useState(false);
 
-  // Update initial service if modal reopens
+  // Update initial service when modal opens
   useEffect(() => {
     if (initialServiceId) {
       setSelectedService(initialServiceId);
@@ -79,15 +78,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   const handleStep1Next = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedService) {
-      alert("Please select a service to continue.");
-      return;
-    }
-    setStep(2);
-  };
-
-  const handleStep2Next = (e: React.FormEvent) => {
-    e.preventDefault();
     if (!appointmentDate) {
       alert("Please select an appointment date.");
       return;
@@ -96,7 +86,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       alert("Please select an appointment time slot.");
       return;
     }
-    setStep(3);
+    setStep(2);
   };
 
   const handleFinalSubmit = (e: React.FormEvent) => {
@@ -140,37 +130,56 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           </button>
         </div>
 
-        {/* 3-Step Progress Indicator (Matching Mockup 1 - 2 - 3) */}
+        {/* Selected Service Bar with Quick Change Option */}
+        <div className="px-6 py-3 bg-[#181822] border-b border-white/10 flex flex-wrap items-center justify-between gap-3 shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 rounded-lg bg-[#D4AF37]/20 text-[#D4AF37]">
+              <Wrench className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
+                Selected Service:
+              </span>
+              <span className="text-xs font-bold text-white">
+                {activeServiceObj.title} ({activeServiceObj.subtitle})
+              </span>
+            </div>
+          </div>
+
+          <select
+            value={selectedService}
+            onChange={(e) => setSelectedService(e.target.value)}
+            className="px-3 py-1.5 rounded-lg bg-[#0a0a0d] border border-white/20 text-xs font-semibold text-slate-200 focus:border-[#D4AF37] focus:outline-none"
+          >
+            {siteConfig.allServices.map((s) => (
+              <option key={s.id} value={s.id} className="bg-[#121218] text-slate-200">
+                Change: {s.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Step Progress Indicator (1 - Date & Time, 2 - Your Info) */}
         {!confirmed && (
           <div className="px-6 py-3 bg-[#0a0a0d] border-b border-white/10 flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-2 sm:gap-4 text-xs font-bold w-full justify-between max-w-md mx-auto">
+            <div className="flex items-center gap-4 text-xs font-bold w-full justify-between max-w-sm mx-auto">
               
               {/* Step 1 Indicator */}
               <div className={`flex items-center gap-2 ${step >= 1 ? "text-[#D4AF37]" : "text-slate-500"}`}>
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs ${step >= 1 ? "bg-[#D4AF37] text-black" : "bg-white/10 text-slate-400"}`}>
                   1
                 </div>
-                <span className="hidden sm:inline uppercase tracking-wider">Select Service</span>
+                <span className="uppercase tracking-wider">Date & Time</span>
               </div>
 
-              <div className={`h-0.5 flex-1 mx-2 ${step >= 2 ? "bg-[#D4AF37]" : "bg-white/10"}`} />
+              <div className={`h-0.5 flex-1 mx-3 ${step >= 2 ? "bg-[#D4AF37]" : "bg-white/10"}`} />
 
               {/* Step 2 Indicator */}
               <div className={`flex items-center gap-2 ${step >= 2 ? "text-[#D4AF37]" : "text-slate-500"}`}>
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs ${step >= 2 ? "bg-[#D4AF37] text-black" : "bg-white/10 text-slate-400"}`}>
                   2
                 </div>
-                <span className="hidden sm:inline uppercase tracking-wider">Date & Time</span>
-              </div>
-
-              <div className={`h-0.5 flex-1 mx-2 ${step >= 3 ? "bg-[#D4AF37]" : "bg-white/10"}`} />
-
-              {/* Step 3 Indicator */}
-              <div className={`flex items-center gap-2 ${step >= 3 ? "text-[#D4AF37]" : "text-slate-500"}`}>
-                <div className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs ${step >= 3 ? "bg-[#D4AF37] text-black" : "bg-white/10 text-slate-400"}`}>
-                  3
-                </div>
-                <span className="hidden sm:inline uppercase tracking-wider">Your Info</span>
+                <span className="uppercase tracking-wider">Your & Car Info</span>
               </div>
 
             </div>
@@ -180,67 +189,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         {/* Modal Body Container */}
         <div className="p-6 overflow-y-auto flex-1 text-left space-y-6">
           
-          {/* ================= STEP 1: SELECT SERVICE ================= */}
+          {/* ================= STEP 1: DATE, TIME & WAIT/DROP-OFF ================= */}
           {!confirmed && step === 1 && (
-            <form onSubmit={handleStep1Next} className="space-y-5">
-              <div className="space-y-1">
-                <h4 className="text-base font-bold text-white font-sans uppercase">
-                  Select the Service You Need
-                </h4>
-                <p className="text-xs text-slate-400">
-                  Choose from our primary services below or pick NJ State Inspection.
-                </p>
-              </div>
-
-              {/* Grid of Available Services */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[380px] overflow-y-auto pr-1">
-                {siteConfig.allServices.map((srv) => {
-                  const isSelected = selectedService === srv.id;
-                  return (
-                    <div
-                      key={srv.id}
-                      onClick={() => setSelectedService(srv.id)}
-                      className={`p-4 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 ${
-                        isSelected
-                          ? "bg-[#D4AF37]/15 border-[#D4AF37] shadow-lg shadow-gold-500/10"
-                          : "bg-white/[0.03] border-white/10 hover:border-white/25 hover:bg-white/[0.06]"
-                      }`}
-                    >
-                      <div className={`w-5 h-5 rounded-full border flex items-center justify-center mt-0.5 shrink-0 ${
-                        isSelected ? "border-[#D4AF37] bg-[#D4AF37] text-black" : "border-white/30"
-                      }`}>
-                        {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                      </div>
-
-                      <div className="space-y-0.5">
-                        <h5 className="text-sm font-bold text-white font-sans">
-                          {srv.title}
-                        </h5>
-                        <p className="text-xs text-slate-400 font-medium">
-                          {srv.subtitle}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Step 1 Footer Action */}
-              <div className="pt-4 border-t border-white/10 flex justify-end">
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#E4C75E] to-[#C09623] text-black font-extrabold text-xs uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg cursor-pointer"
-                >
-                  <span>Next: Select Date & Time</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </form>
-          )}
-
-          {/* ================= STEP 2: DATE, TIME & WAIT/DROP-OFF ================= */}
-          {!confirmed && step === 2 && (
-            <form onSubmit={handleStep2Next} className="space-y-6">
+            <form onSubmit={handleStep1Next} className="space-y-6">
               
               {/* Question 1: Wait or Drop-Off (Matching Mockup) */}
               <div className="space-y-3">
@@ -337,30 +288,21 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </span>
               </div>
 
-              {/* Step 2 Footer Navigation */}
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={() => setStep(1)}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 text-white font-bold text-xs uppercase hover:bg-white/20 transition-all cursor-pointer"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                  <span>Back</span>
-                </button>
-
+              {/* Step 1 Footer Navigation */}
+              <div className="pt-4 border-t border-white/10 flex justify-end">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#E4C75E] to-[#C09623] text-black font-extrabold text-xs uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#E4C75E] to-[#C09623] text-black font-extrabold text-xs uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg cursor-pointer"
                 >
-                  <span>Next: Customer Info</span>
+                  <span>Next: Your Info & Car Details</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </form>
           )}
 
-          {/* ================= STEP 3: CUSTOMER INFO, CAR PLATE & COMMENTS ================= */}
-          {!confirmed && step === 3 && (
+          {/* ================= STEP 2: CUSTOMER INFO, CAR PLATE & COMMENTS ================= */}
+          {!confirmed && step === 2 && (
             <form onSubmit={handleFinalSubmit} className="space-y-5">
               <div className="space-y-1">
                 <h4 className="text-base font-bold text-white font-sans uppercase">
@@ -465,15 +407,15 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
               </div>
 
-              {/* Step 3 Footer Navigation */}
+              {/* Step 2 Footer Navigation */}
               <div className="pt-4 border-t border-white/10 flex items-center justify-between">
                 <button
                   type="button"
-                  onClick={() => setStep(2)}
+                  onClick={() => setStep(1)}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 text-white font-bold text-xs uppercase hover:bg-white/20 transition-all cursor-pointer"
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  <span>Back</span>
+                  <span>Back to Date & Time</span>
                 </button>
 
                 <button
@@ -487,7 +429,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             </form>
           )}
 
-          {/* ================= STEP 4: CONFIRMATION SUCCESS ================= */}
+          {/* ================= STEP 3: CONFIRMATION SUCCESS ================= */}
           {confirmed && (
             <div className="py-8 text-center space-y-6 animate-in zoom-in-95 duration-300">
               
