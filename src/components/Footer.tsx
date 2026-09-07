@@ -4,6 +4,7 @@ import React from "react";
 import { siteConfig } from "@/config/siteConfig";
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Search } from "lucide-react";
 import Image from "next/image";
+import { GetDirectionsButton } from "@/components/GetDirectionsButton";
 
 export const Footer: React.FC = () => {
   return (
@@ -38,7 +39,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Info Block 1: Location */}
-          <div className="lg:col-span-2 space-y-1 text-xs">
+          <div className="lg:col-span-2 space-y-2 text-xs">
             <div className="flex items-center gap-2 text-white font-bold">
               <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0" />
               <span>{siteConfig.brand.address}</span>
@@ -46,6 +47,9 @@ export const Footer: React.FC = () => {
             <p className="text-[11px] text-slate-400 pl-6">
               Local. Reliable. Community Driven.
             </p>
+            <div className="pl-6 pt-1">
+              <GetDirectionsButton variant="compact" />
+            </div>
           </div>
 
           {/* Info Block 2: Operating Hours */}

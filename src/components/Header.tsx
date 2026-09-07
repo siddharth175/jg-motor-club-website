@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { siteConfig } from "@/config/siteConfig";
 import { Phone, Calendar, Menu, X } from "lucide-react";
 import Image from "next/image";
+import { GetDirectionsButton } from "@/components/GetDirectionsButton";
 
 interface HeaderProps {
   activeTab: string;
@@ -62,19 +63,21 @@ export const Header: React.FC<HeaderProps> = ({
             })}
           </nav>
 
-          {/* Right: Phone & Book Appointment Button */}
-          <div className="hidden lg:flex items-center gap-5">
+          {/* Right: Phone, Get Directions & Book Appointment Button */}
+          <div className="hidden lg:flex items-center gap-4">
+            <GetDirectionsButton variant="header" />
+
             <a
               href={`tel:${siteConfig.brand.phone.replace(/\s+/g, "")}`}
-              className="flex items-center gap-2 text-base font-extrabold text-white hover:text-[#D4AF37] transition-colors"
+              className="flex items-center gap-2 text-sm font-extrabold text-white hover:text-[#D4AF37] transition-colors"
             >
-              <Phone className="w-4.5 h-4.5 text-[#D4AF37] fill-[#D4AF37]" />
+              <Phone className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
               <span className="text-white font-extrabold tracking-wide">{siteConfig.brand.displayPhone}</span>
             </a>
 
             <button
               onClick={onOpenBookingModal}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider text-black bg-gradient-to-r from-[#D4AF37] via-[#E2C358] to-[#C59B27] hover:scale-[1.03] active:scale-[0.97] transition-all shadow-lg shadow-gold-500/20"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-black bg-gradient-to-r from-[#D4AF37] via-[#E2C358] to-[#C59B27] hover:scale-[1.03] active:scale-[0.97] transition-all shadow-lg shadow-gold-500/20"
             >
               <Calendar className="w-4 h-4" />
               Book Appointment
@@ -83,6 +86,8 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Mobile Hamburger Toggle */}
           <div className="flex md:hidden items-center gap-2">
+            <GetDirectionsButton variant="compact" />
+
             <button
               onClick={onOpenBookingModal}
               className="px-3 py-1.5 rounded-lg bg-gold-500 text-black font-bold text-xs flex items-center gap-1"
@@ -121,6 +126,8 @@ export const Header: React.FC<HeaderProps> = ({
           </nav>
           
           <div className="pt-2 border-t border-white/10 flex flex-col gap-3">
+            <GetDirectionsButton variant="card" />
+
             <a
               href={`tel:${siteConfig.brand.phone.replace(/\s+/g, "")}`}
               className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold text-slate-200 font-mono"

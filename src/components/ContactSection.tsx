@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { siteConfig } from "@/config/siteConfig";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle2 } from "lucide-react";
+import { GetDirectionsButton } from "@/components/GetDirectionsButton";
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -79,15 +80,19 @@ export const ContactSection: React.FC = () => {
               </div>
 
               {/* Location */}
-              <div className="flex items-start gap-4 pt-3 border-t border-white/5">
-                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-[#D4AF37] flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
+              <div className="flex items-start justify-between gap-4 pt-3 border-t border-white/5">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-[#D4AF37] flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-xs text-slate-400 font-medium block">Shop Location</span>
+                    <span className="text-sm font-bold text-white block">{siteConfig.brand.address}</span>
+                    <span className="text-xs text-slate-400">{siteConfig.brand.addressSubtitle}</span>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-xs text-slate-400 font-medium block">Shop Location</span>
-                  <span className="text-sm font-bold text-white block">{siteConfig.brand.address}</span>
-                  <span className="text-xs text-slate-400">{siteConfig.brand.addressSubtitle}</span>
-                </div>
+
+                <GetDirectionsButton variant="compact" />
               </div>
 
               {/* Hours */}

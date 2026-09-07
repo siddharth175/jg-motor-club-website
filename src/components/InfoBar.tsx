@@ -3,6 +3,7 @@
 import React from "react";
 import { siteConfig } from "@/config/siteConfig";
 import { MapPin, Clock, Users, ShieldCheck } from "lucide-react";
+import { GetDirectionsButton } from "@/components/GetDirectionsButton";
 
 export const InfoBar: React.FC = () => {
   return (
@@ -11,18 +12,22 @@ export const InfoBar: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 divide-y sm:divide-y-0 lg:divide-x divide-white/10">
           
           {/* Block 1: Location */}
-          <div className="flex items-center gap-4 px-4 py-2">
-            <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gold-400 shrink-0">
-              <MapPin className="w-5 h-5" />
+          <div className="flex items-center justify-between px-4 py-2">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gold-400 shrink-0">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-white font-sans">
+                  {siteConfig.brand.address}
+                </h4>
+                <p className="text-xs text-slate-400">
+                  {siteConfig.brand.addressSubtitle}
+                </p>
+              </div>
             </div>
-            <div>
-              <h4 className="text-sm font-bold text-white font-sans">
-                {siteConfig.brand.address}
-              </h4>
-              <p className="text-xs text-slate-400">
-                {siteConfig.brand.addressSubtitle}
-              </p>
-            </div>
+
+            <GetDirectionsButton variant="compact" />
           </div>
 
           {/* Block 2: Operating Hours */}

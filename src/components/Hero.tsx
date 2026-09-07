@@ -2,7 +2,8 @@
 
 import React from "react";
 import { siteConfig } from "@/config/siteConfig";
-import { Calendar, Phone, ArrowRight, MessageSquare } from "lucide-react";
+import { Calendar, Phone, ArrowRight } from "lucide-react";
+import { GetDirectionsButton } from "@/components/GetDirectionsButton";
 
 interface HeroProps {
   onOpenBookingModal: () => void;
@@ -62,12 +63,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
             </p>
 
             {/* CTA Buttons Row */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-4">
               
               {/* Primary: Book Appointment -> */}
               <button
                 onClick={onOpenBookingModal}
-                className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-lg text-sm font-bold uppercase tracking-wider text-black bg-gradient-to-r from-[#D4AF37] via-[#E4C75E] to-[#C09623] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-gold-500/20 cursor-pointer"
+                className="inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-lg text-xs font-bold uppercase tracking-wider text-black bg-gradient-to-r from-[#D4AF37] via-[#E4C75E] to-[#C09623] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-gold-500/20 cursor-pointer"
               >
                 <Calendar className="w-4 h-4" />
                 <span>{siteConfig.hero.primaryCta}</span>
@@ -77,11 +78,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
               {/* Secondary: Call 201 989 6811 */}
               <a
                 href={`tel:${siteConfig.brand.phone.replace(/\s+/g, "")}`}
-                className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-lg text-sm font-extrabold text-white bg-black/60 hover:bg-black/80 border-2 border-white/50 backdrop-blur-md transition-all font-sans hover:border-[#D4AF37] shadow-xl hover:scale-[1.02]"
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-lg text-xs font-extrabold text-white bg-black/60 hover:bg-black/80 border border-white/40 backdrop-blur-md transition-all font-sans hover:border-[#D4AF37] shadow-xl hover:scale-[1.02]"
               >
                 <Phone className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
                 <span className="text-white font-extrabold tracking-wide">Call {siteConfig.brand.displayPhone}</span>
               </a>
+
+              {/* Get Directions Button */}
+              <GetDirectionsButton variant="hero" />
 
             </div>
 

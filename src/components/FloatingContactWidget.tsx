@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { siteConfig } from "@/config/siteConfig";
 import { MessageSquare, PhoneCall, X, Send } from "lucide-react";
+import { GetDirectionsButton } from "@/components/GetDirectionsButton";
 
 export const FloatingContactWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,6 +85,8 @@ export const FloatingContactWidget: React.FC = () => {
               </div>
             </a>
 
+            {/* Get Directions Button */}
+            <GetDirectionsButton variant="card" />
           </div>
 
         </div>
