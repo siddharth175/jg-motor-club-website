@@ -5,11 +5,13 @@ import { MapPin, Navigation, ExternalLink, X } from "lucide-react";
 
 interface GetDirectionsButtonProps {
   variant?: "header" | "hero" | "compact" | "card";
+  position?: "up" | "down";
   className?: string;
 }
 
 export const GetDirectionsButton: React.FC<GetDirectionsButtonProps> = ({
   variant = "hero",
+  position,
   className = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +21,9 @@ export const GetDirectionsButton: React.FC<GetDirectionsButtonProps> = ({
   const addressQuery = encodeURIComponent("J&G Motor Club, Chatham, NJ");
   const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${addressQuery}`;
   const appleMapsUrl = `https://maps.apple.com/?daddr=${addressQuery}`;
+
+  // Determine popover position ('up' or 'down')
+  const popoverPosition = position || (variant === "header" ? "down" : "up");
 
   // Close popover when clicking outside
   useEffect(() => {
@@ -68,7 +73,13 @@ export const GetDirectionsButton: React.FC<GetDirectionsButtonProps> = ({
 
       {/* Popover Options Modal / Menu */}
       {isOpen && (
-        <div className="absolute right-0 sm:right-auto sm:left-0 mt-2 w-72 rounded-2xl bg-[#0f0f14]/95 border border-white/20 shadow-2xl p-4 backdrop-blur-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200 text-left">
+        <div
+          className={`absolute ${
+            popoverPosition === "up"
+              ? "bottom-full mb-2 slide-in-from-bottom-2"
+              : "top-full mt-2 slide-in-from-top-2"
+          } left-0 sm:left-auto sm:right-0 w-72 rounded-2xl bg-[#0f0f14]/98 border border-white/20 shadow-2xl p-4 backdrop-blur-xl z-[100] animate-in fade-in duration-200 text-left`}
+        >
           
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">

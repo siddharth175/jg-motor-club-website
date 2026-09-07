@@ -11,7 +11,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
   return (
-    <section id="home" className="relative min-h-[620px] lg:min-h-[720px] bg-[#08080a] overflow-hidden flex items-center">
+    <section id="home" className="relative min-h-[620px] lg:min-h-[720px] bg-[#08080a] flex items-center">
       
       {/* High-Resolution Background Mockup Image (Garage + BMW) */}
       <div className="absolute inset-0 z-0">
