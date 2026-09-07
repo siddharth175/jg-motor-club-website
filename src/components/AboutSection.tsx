@@ -87,12 +87,12 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onTabChange, fullPag
             )}
           </div>
 
-          {/* Right Column: BMW Rear Image with Cursive "GOOD CARS GREAT PEOPLE" */}
+          {/* Right Column: Real J&G Motor Club Shop Building with Cursive "GOOD CARS GREAT PEOPLE" */}
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-3xl overflow-hidden border border-white/15 shadow-2xl group">
               <img
-                src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80"
-                alt="J&G Motor Club Garage"
+                src="/shop-building.jpg"
+                alt="J&G Motor Club Shop Building in Chatham NJ"
                 className="w-full h-[380px] sm:h-[420px] object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
