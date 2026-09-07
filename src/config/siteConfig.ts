@@ -36,6 +36,8 @@ export const siteConfig = {
     heroBgUrl: "/hero-bg.jpg",
     carfaxBadgeUrl: "/carfax-badge.jpg",
     njInspectionStickerUrl: "/nj-inspection-sticker.jpg",
+    smsUrl: "sms:2019896811",
+    whatsappUrl: "https://wa.me/12019896811?text=Hi%20J%26G%20Motor%20Club%2C%20I%20have%20a%20question%20about%20auto%20service.",
   },
 
   // Google Reviews Configuration

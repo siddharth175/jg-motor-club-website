@@ -13,8 +13,8 @@ import { CtaBanner } from "@/components/CtaBanner";
 import { InfoBar } from "@/components/InfoBar";
 import { Footer } from "@/components/Footer";
 import { BookingModal } from "@/components/BookingModal";
-
 import { StateInspectionBanner } from "@/components/StateInspectionBanner";
+import { FloatingContactWidget } from "@/components/FloatingContactWidget";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
@@ -106,6 +106,9 @@ export default function Home() {
         onClose={() => setBookingModalOpen(false)}
         initialServiceId={selectedServiceId}
       />
+
+      {/* Floating Text & WhatsApp Messaging Widget */}
+      <FloatingContactWidget />
     </div>
   );
 }
