@@ -222,14 +222,14 @@ export const siteConfig = {
     { id: "ac", title: "A/C & Heating", subtitle: "Comfort all year", iconName: "Snowflake" },
   ],
 
-  // Gallery Photos
+  // Gallery Photos (Multi-Brand Auto Repair Shop Work)
   galleryPhotos: [
-    { title: "BMW M4 Garage Bay", category: "Shop", url: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80" },
-    { title: "Brake Rotor Service", category: "Brakes", url: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80" },
-    { title: "Engine Diagnostic", category: "Engine", url: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=800&q=80" },
-    { title: "Laser Wheel Alignment", category: "Alignment", url: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80" },
-    { title: "Garage Service Bay", category: "Shop", url: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" },
-    { title: "BMW Vehicle Lift Inspection", category: "Inspection", url: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80" },
+    { title: "Service Bay Inspection", category: "Shop", url: "/gallery/gallery-1.jpg" },
+    { title: "Brake Rotor & Caliper Repair", category: "Brakes", url: "/gallery/gallery-2.jpg" },
+    { title: "Computerized Engine Diagnostics", category: "Engine", url: "/gallery/gallery-3.jpg" },
+    { title: "Laser Wheel Alignment", category: "Alignment", url: "/gallery/gallery-4.jpg" },
+    { title: "General Repair & Maintenance", category: "Repair", url: "/gallery/gallery-5.jpg" },
+    { title: "State & Undercarriage Lift Inspection", category: "Inspection", url: "/gallery/gallery-6.jpg" },
   ],
 
   // Testimonials
