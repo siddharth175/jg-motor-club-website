@@ -114,7 +114,7 @@ export const siteConfig = {
     description: "At J & G Motor Club, we're passionate about cars and committed to providing honest, reliable, and high-quality auto repair services. Located in Chatham, NJ, our experienced team treats every vehicle like our own — because your safety and satisfaction matter to us.",
     stats: [
       { value: "10+", label: "Years of Experience" },
-      { value: "1000+", label: "Happy Customers" },
+      { value: "2000+", label: "Happy Customers" },
       { value: "All Makes", label: "& Models" },
       { value: "Community", label: "Focused" },
     ],
