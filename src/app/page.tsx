@@ -1,82 +1,111 @@
 "use client";
 
-import { useState } from "react";
-import { ReviewForm, ReviewData } from "@/components/ReviewForm";
-import { ReviewAction } from "@/components/ReviewAction";
+import React, { useState } from "react";
+import { Header } from "@/components/Header";
+import { Hero } from "@/components/Hero";
+import { ServicesSection } from "@/components/ServicesSection";
+import { ServicesPageSection } from "@/components/ServicesPageSection";
+import { AboutSection } from "@/components/AboutSection";
+import { GallerySection } from "@/components/GallerySection";
+import { ReviewsSection } from "@/components/ReviewsSection";
+import { ContactSection } from "@/components/ContactSection";
+import { CtaBanner } from "@/components/CtaBanner";
+import { InfoBar } from "@/components/InfoBar";
+import { Footer } from "@/components/Footer";
+import { BookingModal } from "@/components/BookingModal";
+
+import { StateInspectionBanner } from "@/components/StateInspectionBanner";
 
 export default function Home() {
-  const [step, setStep] = useState<"form" | "result">("form"); // Default to form
-  const [generatedReview, setGeneratedReview] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("home");
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
+  const [selectedServiceId, setSelectedServiceId] = useState("maintenance");
 
-  const handleGenerate = async (data: ReviewData) => {
-    setIsLoading(true);
-    try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) throw new Error("Failed to generate review");
-
-      const result = await response.json();
-      setGeneratedReview(result.review);
-      setStep("result");
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setIsLoading(false);
+  const handleOpenBooking = (serviceId?: string) => {
+    if (serviceId) {
+      setSelectedServiceId(serviceId);
     }
+    setBookingModalOpen(true);
+  };
+
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-slate-200 p-4 sm:p-8 flex items-center justify-center font-sans tracking-tight">
-      {/* Background Gradients */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[20%] -left-[10%] w-[600px] h-[600px] bg-gold-600/10 rounded-full blur-[120px] opacity-40 animate-pulse" />
-        <div className="absolute top-[40%] -right-[10%] w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[100px] opacity-30" />
-      </div>
+    <div className="min-h-screen bg-[#08080a] text-slate-100 font-sans selection:bg-[#D4AF37] selection:text-black">
+      {/* Top Header Bar with Multi-Page Navigation */}
+      <Header
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        onOpenBookingModal={() => handleOpenBooking("maintenance")}
+      />
 
-      <div className="w-full max-w-5xl relative z-10">
-        <header className="mb-10 text-center space-y-2">
-          <div className="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gold-500 mb-2">
-            ✨ J & G Motor Club
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 font-serif tracking-tight">
-            Review Assistant
-          </h1>
-        </header>
+      <main>
+        {/* HOME TAB (Full Homepage Layout from Page 1 Mockup) */}
+        {activeTab === "home" && (
+          <>
+            <Hero onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+            <ServicesSection onOpenBookingModal={(srvId) => handleOpenBooking(srvId)} />
+            <InfoBar />
+            <StateInspectionBanner onOpenBookingModal={(srvId) => handleOpenBooking(srvId)} />
+            <AboutSection onTabChange={handleTabChange} />
+            <GallerySection onTabChange={handleTabChange} />
+            <ReviewsSection />
+            <CtaBanner onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+          </>
+        )}
 
-        {/* Layout Grid - Centered Single Column */}
-        <div className="flex flex-col gap-8 max-w-3xl mx-auto">
+        {/* SERVICES TAB (Services Page Layout from Page 2 Mockup) */}
+        {activeTab === "services" && (
+          <>
+            <ServicesPageSection onOpenBookingModal={(srvId) => handleOpenBooking(srvId)} />
+            <CtaBanner onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+          </>
+        )}
 
-          {/* Main Content Area */}
-          <div className="w-full">
-            <div className="relative group">
-              {/* Border Gradient */}
-              <div className="absolute -inset-[1px] bg-gradient-to-br from-gold-600/50 via-gold-400/20 to-gold-600/50 rounded-2xl blur-[1px] opacity-40" />
+        {/* ABOUT TAB (About Us Page Layout from Page 3 Mockup) */}
+        {activeTab === "about" && (
+          <>
+            <AboutSection fullPage />
+            <CtaBanner onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+          </>
+        )}
 
-              <div className="relative bg-[#0F0F0F] border border-white/10 rounded-2xl shadow-2xl p-6 sm:p-8 backdrop-blur-xl">
+        {/* GALLERY TAB */}
+        {activeTab === "gallery" && (
+          <>
+            <GallerySection fullPage />
+            <CtaBanner onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+          </>
+        )}
 
-                {step === "form" && (
-                  <ReviewForm onGenerate={handleGenerate} isLoading={isLoading} />
-                )}
+        {/* REVIEWS TAB */}
+        {activeTab === "reviews" && (
+          <>
+            <ReviewsSection />
+            <CtaBanner onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+          </>
+        )}
 
-                {step === "result" && (
-                  <ReviewAction
-                    initialReview={generatedReview}
-                    onReset={() => setStep("form")}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
+        {/* CONTACT TAB (Contact Page Layout from Page 4 Mockup) */}
+        {activeTab === "contact" && (
+          <>
+            <ContactSection />
+          </>
+        )}
+      </main>
 
-        </div>
+      {/* Footer Bar */}
+      <Footer />
 
-      </div>
-    </main>
+      {/* Interactive Appointment Booking Modal */}
+      <BookingModal
+        isOpen={bookingModalOpen}
+        onClose={() => setBookingModalOpen(false)}
+        initialServiceId={selectedServiceId}
+      />
+    </div>
   );
 }

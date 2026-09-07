@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,11 +13,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "J & G Motor Club Reviews",
-  description: "Share your experience with J & G Motor Club",
+  title: "J & G Motor Club | Premium Auto Care in Chatham, NJ",
+  description: "Expert auto repair, maintenance, brake service, engine diagnostics, tires & alignment in Chatham, NJ. Call 201 989 6811.",
   icons: {
-    icon: "/favicon.ico", // Standard favicon path, we can add one later
+    icon: "/logo.png",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#08080a",
 };
 
 export default function RootLayout({
@@ -26,9 +34,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#08080a] text-slate-100 selection:bg-[#D4AF37] selection:text-black`}
       >
         {children}
       </body>
