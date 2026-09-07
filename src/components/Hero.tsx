@@ -62,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
             </p>
 
             {/* CTA Buttons Row */}
-            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3.5 pt-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
               
               {/* Primary: Book Appointment -> */}
               <button
@@ -81,17 +81,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
               >
                 <Phone className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
                 <span className="text-white font-extrabold tracking-wide">Call {siteConfig.brand.displayPhone}</span>
-              </a>
-
-              {/* Text Us / WhatsApp Button */}
-              <a
-                href={siteConfig.brand.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-lg text-sm font-extrabold text-black bg-[#25D366] hover:bg-[#20bd5a] transition-all shadow-xl hover:scale-[1.02] cursor-pointer"
-              >
-                <MessageSquare className="w-4 h-4 fill-black text-black" />
-                <span>Text Us (WhatsApp)</span>
               </a>
 
             </div>
