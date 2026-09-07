@@ -19,11 +19,16 @@ import { FloatingContactWidget } from "@/components/FloatingContactWidget";
 export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
-  const [selectedServiceId, setSelectedServiceId] = useState("maintenance");
+  const [selectedServiceId, setSelectedServiceId] = useState<string>("state-inspection");
+  const [isServicePreselected, setIsServicePreselected] = useState<boolean>(false);
 
   const handleOpenBooking = (serviceId?: string) => {
     if (serviceId) {
       setSelectedServiceId(serviceId);
+      setIsServicePreselected(true);
+    } else {
+      setSelectedServiceId("state-inspection");
+      setIsServicePreselected(false);
     }
     setBookingModalOpen(true);
   };
@@ -39,21 +44,21 @@ export default function Home() {
       <Header
         activeTab={activeTab}
         onTabChange={handleTabChange}
-        onOpenBookingModal={() => handleOpenBooking("maintenance")}
+        onOpenBookingModal={() => handleOpenBooking()}
       />
 
       <main>
         {/* HOME TAB (Full Homepage Layout from Page 1 Mockup) */}
         {activeTab === "home" && (
           <>
-            <Hero onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+            <Hero onOpenBookingModal={() => handleOpenBooking()} />
             <ServicesSection onOpenBookingModal={(srvId) => handleOpenBooking(srvId)} />
             <InfoBar />
             <StateInspectionBanner onOpenBookingModal={(srvId) => handleOpenBooking(srvId)} />
             <AboutSection onTabChange={handleTabChange} />
             <GallerySection onTabChange={handleTabChange} />
             <ReviewsSection />
-            <CtaBanner onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+            <CtaBanner onOpenBookingModal={() => handleOpenBooking()} />
           </>
         )}
 
@@ -61,7 +66,7 @@ export default function Home() {
         {activeTab === "services" && (
           <>
             <ServicesPageSection onOpenBookingModal={(srvId) => handleOpenBooking(srvId)} />
-            <CtaBanner onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+            <CtaBanner onOpenBookingModal={() => handleOpenBooking()} />
           </>
         )}
 
@@ -69,7 +74,7 @@ export default function Home() {
         {activeTab === "about" && (
           <>
             <AboutSection fullPage />
-            <CtaBanner onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+            <CtaBanner onOpenBookingModal={() => handleOpenBooking()} />
           </>
         )}
 
@@ -77,7 +82,7 @@ export default function Home() {
         {activeTab === "gallery" && (
           <>
             <GallerySection fullPage />
-            <CtaBanner onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+            <CtaBanner onOpenBookingModal={() => handleOpenBooking()} />
           </>
         )}
 
@@ -85,7 +90,7 @@ export default function Home() {
         {activeTab === "reviews" && (
           <>
             <ReviewsSection />
-            <CtaBanner onOpenBookingModal={() => handleOpenBooking("maintenance")} />
+            <CtaBanner onOpenBookingModal={() => handleOpenBooking()} />
           </>
         )}
 
@@ -105,6 +110,7 @@ export default function Home() {
         isOpen={bookingModalOpen}
         onClose={() => setBookingModalOpen(false)}
         initialServiceId={selectedServiceId}
+        isServicePreselected={isServicePreselected}
       />
 
       {/* Floating Text & WhatsApp Messaging Widget */}
